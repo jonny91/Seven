@@ -9,6 +9,7 @@ void checkPuzzle();
 void shoot();
 void initShootLight();
 void handLockOrCard();
+void shoot2();
 
 /*
  * 输出低电平触发
@@ -35,6 +36,9 @@ void main()
 				break;
 			case 2:
 				handLockOrCard();
+				break;
+			case 3:
+				shoot2();
 				break;
 		}
 	}			
@@ -69,6 +73,15 @@ void init()
 	P07 = 1；
 	//手铐开关输入
 	P32 = 0;
+
+	//2个激光灯
+	P33 = 1；
+	P35 = 1;
+	//2个激光输入
+	P34 = 0；
+	P36 = 0；
+	//最后的门
+	P37 = 1；
 }
 
 void checkPuzzle()
@@ -98,9 +111,9 @@ void initShootLight()
 void shoot()
 {
 	int shootStep = 0;
-	initShootLight();
 	while(1)
 	{
+		initShootLight();
 		switch(shootStep)
 		{
 			case 0:
@@ -184,14 +197,47 @@ void shoot()
 void handLockOrCard()
 {
 	//手铐输入
-	if((P32 == 0）&&(P06 == 1))
+	if((P32 == 0）&& (P06 == 1))
 	{
 		//牌子感应关闭
 		P07 = 0；
+		//照2个灯
+		setStep(3);
+		return;
 	}
+}
 
-	if()
+void shoot2()
+{
+	int shootStep = 0;
+
+	while(1)
 	{
-
+		P33 = 1；
+		P35 = 1;
+		switch(shootStep)
+		{
+			case 0:
+				P33 = 0;
+				if(P34 == 1)
+				{
+					shootStep = 1;
+				}
+				break;
+			case 1:
+				P35 = 0;
+				if(P36 == 1)
+				{
+					shootStep = 2;
+				}
+				break;
+			case 2:
+				setStep(4);
+				//打开最后的门
+				P37 = 0;
+				return;
+		}
 	}
+
+	return;
 }
