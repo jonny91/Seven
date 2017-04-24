@@ -4,7 +4,6 @@
 #include "mp3.h"
 #include "BackRoom.h"
 
-void start();
 void init();
 void checkButtonInput();
 void light();
