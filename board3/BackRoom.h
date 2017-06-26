@@ -1,9 +1,9 @@
 
-void delay_ms(int count)  // /* X1ms */	 ÑÓÊ±1ms³ÌÐò
+void delay_ms(int count)  // /* X1ms */	 ??1ms??
 {
-    uint i,j;
- 	for(i=xms;i>0;i--)
- 		for(j=124;j>0;j--);
+        int i,j;
+        for(i=0;i<count;i++)
+                for(j=0;j<1000;j++);
 }
 
 

@@ -1,8 +1,9 @@
 #include <STC89C5xRC.H>
 #include "Board2.h"
+#include "BackRoom.h"
 #include "uart.h"
 #include "mp3.h"
-#include "BackRoom.h"
+
 
 void init();
 void checkButtonInput();
@@ -58,11 +59,11 @@ void init()
 	P06 = 0;
 	P07 = 0;
 	
-	P20 = 0；
-	P21 = 0；
+	P20 = 0;
+	P21 = 0;
 
 	//10个按钮对应的灯
-	P10 = 1；
+	P10 = 1;
 	P11 = 1;
 	
 	P12 = 1;
@@ -204,7 +205,7 @@ void light()
 	{
 		case -1:
 			P22 = 0;
-			P23 = 0
+			P23 = 0;
 			break;
 		case 1:
 			P22 = 1;

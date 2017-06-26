@@ -1,8 +1,9 @@
 #include <STC89C5xRC.H>
+#include "BackRoom.h"
 #include "Board3.h"
 #include "uart.h"
 #include "mp3.h"
-#include "BackRoom.h"
+
 
 void init();
 void checkPuzzle();
@@ -68,20 +69,20 @@ void init()
 	P05 = 1;
 
 	//手铐输入
-	P06 = 0；
+	P06 = 0;
 	//牌子感应开关
-	P07 = 1；
+	P07 = 1;
 	//手铐开关输入
 	P32 = 0;
 
 	//2个激光灯
-	P33 = 1；
+	P33 = 1;
 	P35 = 1;
 	//2个激光输入
-	P34 = 0；
-	P36 = 0；
+	P34 = 0;
+	P36 = 0;
 	//最后的门
-	P37 = 1；
+	P37 = 1;
 }
 
 void checkPuzzle()
@@ -173,14 +174,14 @@ void shoot()
 				}
 				break;
 			case 8:
-				P18 = 0;
+				P01 = 0;
 				if(P03 == 1)
 				{
 					shootStep = 9;
 				}		
 				break;
 			case 9:
-				P19 = 0;
+				P02 = 0;
 				if(P04 == 1)
 				{
 					shootStep = 10;
@@ -197,10 +198,10 @@ void shoot()
 void handLockOrCard()
 {
 	//手铐输入
-	if((P32 == 0）&& (P06 == 1))
+	if((P32 == 0)&& (P06 == 1))
 	{
 		//牌子感应关闭
-		P07 = 0；
+		P07 = 0;
 		//照2个灯
 		setStep(3);
 		return;
@@ -213,7 +214,7 @@ void shoot2()
 
 	while(1)
 	{
-		P33 = 1；
+		P33 = 1;
 		P35 = 1;
 		switch(shootStep)
 		{

@@ -1,0 +1,249 @@
+C51 COMPILER V9.54   BOARD2                                                                06/26/2017 22:12:21 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE BOARD2
+OBJECT MODULE PLACED IN .\Objects\Board2.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE Board2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\Bo
+                    -ard2.lst) TABS(2) OBJECT(.\Objects\Board2.obj)
+
+line level    source
+
+   1          #include <STC89C5xRC.H>
+   2          #include "Board2.h"
+   3          #include "BackRoom.h"
+   4          #include "uart.h"
+   5          #include "mp3.h"
+   6          
+   7          
+   8          void init();
+   9          void checkButtonInput();
+  10          void light();
+  11          
+  12          int groupSelect_0 = -1;
+  13          int groupSelect_1 = -1;
+  14          int groupSelect_2 = -1;
+  15          int groupSelect_3 = -1;
+  16          
+  17          /*
+  18           * 输出低电平触发
+  19           * 输入高电平触发
+  20           *
+  21           */
+  22          void main()
+  23          {
+  24   1        init();
+  25   1        uart_init();
+  26   1        mp3_init();
+  27   1      
+  28   1        delay_ms(100);
+  29   1      
+  30   1        while(1)
+  31   1        {
+  32   2          switch(step)
+  33   2          {
+  34   3            case 0:
+  35   3              checkButtonInput();
+  36   3              light();
+  37   3              if((groupSelect_0 == 1)&&(groupSelect_2 == 1)&&(groupSelect_3 == 1)&&(groupSelect_3 == 1))
+  38   3              {
+  39   4                P24 = 0;
+  40   4                setStep(1);
+  41   4              }
+  42   3              break;
+  43   3          }
+  44   2        }
+  45   1      }
+  46          
+  47          void init()
+  48          {
+  49   1        //分组 2 3 3 2
+  50   1        //10个按钮输入
+  51   1        P00 = 0;
+  52   1        P01 = 0;
+  53   1        
+  54   1        P02 = 0;
+C51 COMPILER V9.54   BOARD2                                                                06/26/2017 22:12:21 PAGE 2   
+
+  55   1        P03 = 0;
+  56   1        P04 = 0;
+  57   1        
+  58   1        P05 = 0;
+  59   1        P06 = 0;
+  60   1        P07 = 0;
+  61   1        
+  62   1        P20 = 0;
+  63   1        P21 = 0;
+  64   1      
+  65   1        //10个按钮对应的灯
+  66   1        P10 = 1;
+  67   1        P11 = 1;
+  68   1        
+  69   1        P12 = 1;
+  70   1        P13 = 1;
+  71   1        P14 = 1;
+  72   1        
+  73   1        P15 = 1;
+  74   1        P16 = 1;
+  75   1        P17 = 1;
+  76   1        
+  77   1        P22 = 1;
+  78   1        P23 = 1;
+  79   1      
+  80   1        //电磁柜
+  81   1        P24 = 1;
+  82   1      }
+  83          
+  84          void checkButtonInput()
+  85          {
+  86   1        if(P00 == 1)
+  87   1        {
+  88   2          groupSelect_0 = 1;
+  89   2          return;
+  90   2        }
+  91   1        if(P01 == 1)
+  92   1        {
+  93   2          groupSelect_0 = 2;
+  94   2          return;
+  95   2        }
+  96   1      
+  97   1        if(P02 == 1)
+  98   1        {
+  99   2          groupSelect_1 = 1;
+ 100   2          return;
+ 101   2        }
+ 102   1        if(P03 == 1)
+ 103   1        {
+ 104   2          groupSelect_1 = 2;
+ 105   2          return;
+ 106   2        }
+ 107   1        if(P04 == 1)
+ 108   1        {
+ 109   2          groupSelect_1 = 3;
+ 110   2          return;
+ 111   2        }
+ 112   1      
+ 113   1        if(P05 == 1)
+ 114   1        {
+ 115   2          groupSelect_2 = 1;
+ 116   2          return;
+C51 COMPILER V9.54   BOARD2                                                                06/26/2017 22:12:21 PAGE 3   
+
+ 117   2        }
+ 118   1        if(P06 == 1)
+ 119   1        {
+ 120   2          groupSelect_2 = 2;
+ 121   2          return;
+ 122   2        }
+ 123   1        if(P07 == 1)
+ 124   1        {
+ 125   2          groupSelect_2 = 3;
+ 126   2          return;
+ 127   2        }
+ 128   1      
+ 129   1        if(P20 == 1)
+ 130   1        {
+ 131   2          groupSelect_3 = 1;
+ 132   2          return;
+ 133   2        }
+ 134   1        if(P21 == 1)
+ 135   1        {
+ 136   2          groupSelect_3 = 2;
+ 137   2          return;
+ 138   2        }
+ 139   1      }
+ 140          
+ 141          void light()
+ 142          { 
+ 143   1        switch(groupSelect_0)
+ 144   1        {
+ 145   2          case -1:
+ 146   2            P10 = 0;
+ 147   2            P11 = 0;
+ 148   2            break;
+ 149   2          case 1:
+ 150   2            P10 = 1;
+ 151   2            P11 = 0;
+ 152   2            break;
+ 153   2          case 2:
+ 154   2            P10 = 0;
+ 155   2            P11 = 1;
+ 156   2            break;
+ 157   2        }
+ 158   1        switch(groupSelect_1)
+ 159   1        {
+ 160   2          case -1:
+ 161   2            P12 = 0;
+ 162   2            P13 = 0;
+ 163   2            P14 = 0;
+ 164   2            break;
+ 165   2          case 1:
+ 166   2            P12 = 1;
+ 167   2            P13 = 0;
+ 168   2            P14 = 0;
+ 169   2            break;
+ 170   2          case 2:
+ 171   2            P12 = 0;
+ 172   2            P13 = 1;
+ 173   2            P14 = 0;
+ 174   2            break;
+ 175   2          case 3:
+ 176   2            P12 = 0;
+ 177   2            P13 = 0;
+ 178   2            P14 = 1;
+C51 COMPILER V9.54   BOARD2                                                                06/26/2017 22:12:21 PAGE 4   
+
+ 179   2            break;
+ 180   2        }
+ 181   1        switch(groupSelect_2)
+ 182   1        {
+ 183   2          case -1:
+ 184   2            P15 = 0;
+ 185   2            P16 = 0;
+ 186   2            P17 = 0;
+ 187   2            break;
+ 188   2          case 1:
+ 189   2            P15 = 1;
+ 190   2            P16 = 0;
+ 191   2            P17 = 0;
+ 192   2            break;
+ 193   2          case 2:
+ 194   2            P15 = 0;
+ 195   2            P16 = 1;
+ 196   2            P17 = 0;
+ 197   2            break;
+ 198   2          case 3:
+ 199   2            P15 = 0;
+ 200   2            P16 = 0;
+ 201   2            P17 = 1;
+ 202   2            break;
+ 203   2        }
+ 204   1        switch(groupSelect_3)
+ 205   1        {
+ 206   2          case -1:
+ 207   2            P22 = 0;
+ 208   2            P23 = 0;
+ 209   2            break;
+ 210   2          case 1:
+ 211   2            P22 = 1;
+ 212   2            P23 = 0;
+ 213   2            break;
+ 214   2          case 2:
+ 215   2            P22 = 0;
+ 216   2            P23 = 1;
+ 217   2            break;
+ 218   2        }
+ 219   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    777    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     11    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

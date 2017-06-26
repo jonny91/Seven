@@ -1,0 +1,276 @@
+C51 COMPILER V9.54   BOARD3                                                                06/26/2017 22:17:02 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE BOARD3
+OBJECT MODULE PLACED IN .\Objects\Board3.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE Board3.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\Bo
+                    -ard3.lst) TABS(2) OBJECT(.\Objects\Board3.obj)
+
+line level    source
+
+   1          #include <STC89C5xRC.H>
+   2          #include "BackRoom.h"
+   3          #include "Board3.h"
+   4          #include "uart.h"
+   5          #include "mp3.h"
+   6          
+   7          
+   8          void init();
+   9          void checkPuzzle();
+  10          void shoot();
+  11          void initShootLight();
+  12          void handLockOrCard();
+  13          void shoot2();
+  14          
+  15          /*
+  16           * 输出低电平触发
+  17           * 输入高电平触发
+  18           *
+  19           */
+  20          void main()
+  21          {
+  22   1        init();
+  23   1        uart_init();
+  24   1        mp3_init();
+  25   1      
+  26   1        delay_ms(100);
+  27   1      
+  28   1        while(1)
+  29   1        {
+  30   2          switch(step)
+  31   2          {
+  32   3            case 0:
+  33   3              checkPuzzle();
+  34   3              break;
+  35   3            case 1:
+  36   3              shoot();
+  37   3              break;
+  38   3            case 2:
+  39   3              handLockOrCard();
+  40   3              break;
+  41   3            case 3:
+  42   3              shoot2();
+  43   3              break;
+  44   3          }
+  45   2        }     
+  46   1      }
+  47          
+  48          void init()
+  49          {
+  50   1        //拼图机关输入
+  51   1        P00 = 0;
+  52   1      
+  53   1        initShootLight();
+  54   1      
+C51 COMPILER V9.54   BOARD3                                                                06/26/2017 22:17:02 PAGE 2   
+
+  55   1      
+  56   1        //10个激光的输入
+  57   1        P20 = 0;
+  58   1        P21 = 0;
+  59   1        P22 = 0;
+  60   1        P23 = 0;
+  61   1        P24 = 0;
+  62   1        P25 = 0;
+  63   1        P26 = 0;
+  64   1        P27 = 0;
+  65   1        P03 = 0;
+  66   1        P04 = 0;
+  67   1      
+  68   1        //激光正确 打开柜门
+  69   1        P05 = 1;
+  70   1      
+  71   1        //手铐输入
+  72   1        P06 = 0;
+  73   1        //牌子感应开关
+  74   1        P07 = 1;
+  75   1        //手铐开关输入
+  76   1        P32 = 0;
+  77   1      
+  78   1        //2个激光灯
+  79   1        P33 = 1;
+  80   1        P35 = 1;
+  81   1        //2个激光输入
+  82   1        P34 = 0;
+  83   1        P36 = 0;
+  84   1        //最后的门
+  85   1        P37 = 1;
+  86   1      }
+  87          
+  88          void checkPuzzle()
+  89          {
+  90   1        if(P00 == 1)
+  91   1        {
+  92   2          setStep(1);
+  93   2          return;
+  94   2        }
+  95   1      }
+  96          
+  97          void initShootLight()
+  98          {
+  99   1        //激光的灯
+ 100   1        P10 = 1;
+ 101   1        P11 = 1;
+ 102   1        P12 = 1;
+ 103   1        P13 = 1;
+ 104   1        P14 = 1;
+ 105   1        P15 = 1;
+ 106   1        P16 = 1;
+ 107   1        P17 = 1;
+ 108   1        P01 = 1;
+ 109   1        P02 = 1;
+ 110   1      }
+ 111          
+ 112          void shoot()
+ 113          {
+ 114   1        int shootStep = 0;
+ 115   1        while(1)
+ 116   1        {
+C51 COMPILER V9.54   BOARD3                                                                06/26/2017 22:17:02 PAGE 3   
+
+ 117   2          initShootLight();
+ 118   2          switch(shootStep)
+ 119   2          {
+ 120   3            case 0:
+ 121   3              P10 = 0;
+ 122   3              if(P20 == 1)
+ 123   3              {
+ 124   4                shootStep = 1;
+ 125   4              }
+ 126   3              break;
+ 127   3            case 1:
+ 128   3              P11 = 0;
+ 129   3              if(P21 == 1)
+ 130   3              {
+ 131   4                shootStep = 2;
+ 132   4              }
+ 133   3              break;
+ 134   3            case 2:
+ 135   3              P12 = 0;
+ 136   3              if(P22 == 1)
+ 137   3              {
+ 138   4                shootStep = 3;
+ 139   4              }
+ 140   3              break;
+ 141   3            case 3:
+ 142   3              P13 = 0;
+ 143   3              if(P23 == 1)
+ 144   3              {
+ 145   4                shootStep = 4;
+ 146   4              }
+ 147   3              break;
+ 148   3            case 4:
+ 149   3              P14 = 0;
+ 150   3              if(P24 == 1)
+ 151   3              {
+ 152   4                shootStep = 5;
+ 153   4              }
+ 154   3              break;
+ 155   3            case 5:
+ 156   3              P15 = 0;
+ 157   3              if(P25 == 1)
+ 158   3              {
+ 159   4                shootStep = 6;
+ 160   4              }
+ 161   3              break;
+ 162   3            case 6:
+ 163   3              P16 = 0;
+ 164   3              if(P26 == 1)
+ 165   3              {
+ 166   4                shootStep = 7;
+ 167   4              }   
+ 168   3              break;
+ 169   3            case 7:
+ 170   3              P17 = 0;
+ 171   3              if(P27 == 1)
+ 172   3              {
+ 173   4                shootStep = 8;
+ 174   4              }
+ 175   3              break;
+ 176   3            case 8:
+ 177   3              P01 = 0;
+ 178   3              if(P03 == 1)
+C51 COMPILER V9.54   BOARD3                                                                06/26/2017 22:17:02 PAGE 4   
+
+ 179   3              {
+ 180   4                shootStep = 9;
+ 181   4              }   
+ 182   3              break;
+ 183   3            case 9:
+ 184   3              P02 = 0;
+ 185   3              if(P04 == 1)
+ 186   3              {
+ 187   4                shootStep = 10;
+ 188   4              }
+ 189   3              break;
+ 190   3            case 10:
+ 191   3              P05 = 0;
+ 192   3              setStep(2);
+ 193   3              return;
+ 194   3          }
+ 195   2        }
+ 196   1      }
+ 197          
+ 198          void handLockOrCard()
+ 199          {
+ 200   1        //手铐输入
+ 201   1        if((P32 == 0)&& (P06 == 1))
+ 202   1        {
+ 203   2          //牌子感应关闭
+ 204   2          P07 = 0;
+ 205   2          //照2个灯
+ 206   2          setStep(3);
+ 207   2          return;
+ 208   2        }
+ 209   1      }
+ 210          
+ 211          void shoot2()
+ 212          {
+ 213   1        int shootStep = 0;
+ 214   1      
+ 215   1        while(1)
+ 216   1        {
+ 217   2          P33 = 1;
+ 218   2          P35 = 1;
+ 219   2          switch(shootStep)
+ 220   2          {
+ 221   3            case 0:
+ 222   3              P33 = 0;
+ 223   3              if(P34 == 1)
+ 224   3              {
+ 225   4                shootStep = 1;
+ 226   4              }
+ 227   3              break;
+ 228   3            case 1:
+ 229   3              P35 = 0;
+ 230   3              if(P36 == 1)
+ 231   3              {
+ 232   4                shootStep = 2;
+ 233   4              }
+ 234   3              break;
+ 235   3            case 2:
+ 236   3              setStep(4);
+ 237   3              //打开最后的门
+ 238   3              P37 = 0;
+ 239   3              return;
+ 240   3          }
+C51 COMPILER V9.54   BOARD3                                                                06/26/2017 22:17:02 PAGE 5   
+
+ 241   2        }
+ 242   1      
+ 243   1        return;
+ 244   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    763    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
