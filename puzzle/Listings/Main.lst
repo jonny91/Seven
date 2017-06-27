@@ -1,0 +1,57 @@
+C51 COMPILER V9.54   MAIN                                                                  06/27/2017 22:30:41 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\Main.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE Main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\Main
+                    -.lst) TABS(2) OBJECT(.\Objects\Main.obj)
+
+line level    source
+
+   1          #include <STC89C5xRC.H>
+   2          
+   3          void init()
+   4          {
+   5   1        P10 = 0;
+   6   1        P11 = 0;
+   7   1        P12 = 0;
+   8   1        P13 = 0;
+   9   1        P14 = 0;
+  10   1        P15 = 0;
+  11   1        P16 = 0;
+  12   1        P17 = 0;  
+  13   1        P21 = 0;
+  14   1        
+  15   1        P22 = 1;
+  16   1      }
+  17          
+  18          void main()
+  19          {
+  20   1        init();
+  21   1        while(1)
+  22   1        {
+  23   2          if((P10 == 1)&&( P11 == 1)&&( P12 == 1)&&(P13 == 1)&&(P14 == 1)&&(P15 == 1 )&&(P16==1)&&(P17==1)&&(P21==
+             -1))
+  24   2          {
+  25   3            P22 = 0;
+  26   3          }
+  27   2          else
+  28   2          {
+  29   3            P22 =1;
+  30   3          }
+  31   2        }
+  32   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     59    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
