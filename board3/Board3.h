@@ -1,0 +1,1 @@
+code int PUZZLE_CORRECT = 0x01;

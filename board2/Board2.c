@@ -37,6 +37,7 @@ void main()
 				if((groupSelect_0 == 1)&&(groupSelect_2 == 1)&&(groupSelect_3 == 1)&&(groupSelect_3 == 1))
 				{
 					P24 = 0;
+					play_mp3(0,MUSIC_0);
 					setStep(1);
 				}
 				break;

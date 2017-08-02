@@ -66,7 +66,12 @@ void start()
 	//关门了
 	if(P00 == 1)
 	{
-		setStep(1);
+		delay_ms(5000);
+		if(P00 == 1)
+		{
+			play_mp3(0,MUSCI_INDOOR);
+			setStep(1);
+		}
 	}
 }
 
@@ -92,8 +97,13 @@ void firstOpen() //ABC都开过柜子
 		//三个柜子都开过了
 		if((isA == 1)&&(isB == 1)&&(isC == 1))
 		{
-			setStep(2);
-			return;
+			delay_ms(50);
+			if((isA == 1)&&(isB == 1)&&(isC == 1))
+			{
+				setStep(2);
+				play_mp3(0,MUSIC_INPUT_3_7);//触发录音202(正确反馈和写字机关提示)
+				return;
+			}
 		}
 	}
 }
@@ -105,7 +115,12 @@ void put()
 		//ABC三个对应摆放都放着
 		if((P04 == 1)&&(P05 == 1)&&(P06 == 1))
 		{
-			P20 = 0;//打开第二个房间的门
+			delay_ms(50);
+			if((P04 == 1)&&(P05 == 1)&&(P06 == 1))
+			{
+				P20 = 0;//打开第二个房间的门
+				play_mp3(0,MUSIC_OUTDOOR2);//触发录音203(正确反馈和下一组机关提示)
+			}
 		}
 		else
 		{
@@ -114,7 +129,12 @@ void put()
 
 		if(P07 == 1)
 		{
-			P21 = 0;
+			delay_ms(50);
+			if(P07 == 1)
+			{
+				P21 = 0;//打开房间3的门
+				play_mp3(0,MUSIC_OUTDOOR3);
+			}		
 		}
 		else
 		{
@@ -123,7 +143,12 @@ void put()
 
 		if(P11 == 1)
 		{
-			P22 = 0;
+			delay_ms(50);
+			if(P11 == 1)
+			{
+				P22 = 0;//打开房间4的门
+				play_mp3(0,MUSIC_OUTDOOR4);
+			}
 		}
 		else
 		{
@@ -133,12 +158,16 @@ void put()
 		//P23开关开着 P25 P26对应摆放放对了
 		if((P23 == 1)&&(P25 == 1)&&(P26 == 1))
 		{
-			P24 = 0;//关闭手铐开关
+			delay_ms(50);
+			if((P23 == 1)&&(P25 == 1)&&(P26 == 1))
+			{
+				P24 = 0;//关闭手铐开关
 
-			P27 = 0;//打开门
-
-			setStep(3);
-			break;
+				P27 = 0;//打开门
+				play_mp3(0,MUSIC_POLICE_WIN);//警察胜利
+				setStep(3);
+				break;
+			}
 		}
 	}	
 }

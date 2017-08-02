@@ -89,8 +89,13 @@ void checkPuzzle()
 {
 	if(P00 == 1)
 	{
-		setStep(1);
-		return;
+		delay_ms(50);
+		if(P00 == 1)
+		{
+			setStep(1);
+			play_mp3(0,PUZZLE_CORRECT);//拼图正确
+			return;
+		}
 	}
 }
 
