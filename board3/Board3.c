@@ -8,7 +8,8 @@
 void init();
 void checkPuzzle();
 void shoot();
-void initShootLight();
+void initShootLightOn();
+void initShootLightOff();
 void handLockOrCard();
 void shoot2();
 
@@ -50,7 +51,7 @@ void init()
 	//拼图机关输入
 	P00 = 0;
 
-	initShootLight();
+	initShootLightOff();//灯灭
 
 
 	//10个激光的输入
@@ -99,7 +100,22 @@ void checkPuzzle()
 	}
 }
 
-void initShootLight()
+void initShootLightOn()//灯亮
+{
+	//激光的灯
+	P10 = 0;
+	P11 = 0;
+	P12 = 0;
+	P13 = 0;
+	P14 = 0;
+	P15 = 0;
+	P16 = 0;
+	P17 = 0;
+	P01 = 0;
+	P02 = 0;
+}
+
+void initShootLightOff()//灯灭
 {
 	//激光的灯
 	P10 = 1;
@@ -114,86 +130,408 @@ void initShootLight()
 	P02 = 1;
 }
 
+void shootLightShine()
+{
+	initShootLightOff();
+	delay_ms(100);
+	initShootLightOn();
+	delay_ms(100);
+	initShootLightOff();
+	delay_ms(100);
+	initShootLightOn();
+	delay_ms(100);
+	initShootLightOff();
+	delay_ms(100);
+	initShootLightOn();
+	delay_ms(100);
+	initShootLightOff();
+	delay_ms(100);
+	initShootLightOn();
+	delay_ms(100);
+	initShootLightOff();
+}
+
+int shootStep = 0;
+void onShootError()
+{
+	play_mp3(0,SHOOT_ERROR);
+	shootLightShine();
+	shootStep = 0;
+}
+
 void shoot()
 {
-	int shootStep = 0;
+	initShootLightOff();
 	while(1)
-	{
-		initShootLight();
+	{		
 		switch(shootStep)
 		{
 			case 0:
 				P10 = 0;
 				if(P20 == 1)
 				{
-					shootStep = 1;
+					delay_ms(50);
+					if(P20 == 1)
+					{
+						shootStep = 1;
+						
+						P10 = 1;
+					}
+				}
+				if((P21 == 1)||
+				(P22 == 1)||
+				(P23 == 1)||
+				(P24 == 1)||
+				(P25 == 1)||
+				(P26 == 1)||
+				(P27 == 1)||
+				(P03 == 1)||
+				(P04 == 1))
+				{
+					delay_ms(50);
+					if((P21 == 1)||
+					(P22 == 1)||
+					(P23 == 1)||
+					(P24 == 1)||
+					(P25 == 1)||
+					(P26 == 1)||
+					(P27 == 1)||
+					(P03 == 1)||
+					(P04 == 1))
+					{
+						onShootError();
+					}
 				}
 				break;
 			case 1:
 				P11 = 0;
 				if(P21 == 1)
 				{
-					shootStep = 2;
+					delay_ms(50);
+					if(P21 == 1)
+					{
+						shootStep = 2;
+						
+						P11 = 1;
+					}				
+				}
+				if((P20 == 1)||
+				(P22 == 1)||
+				(P23 == 1)||
+				(P24 == 1)||
+				(P25 == 1)||
+				(P26 == 1)||
+				(P27 == 1)||
+				(P03 == 1)||
+				(P04 == 1))
+				{
+					delay_ms(50);
+					if((P20 == 1)||
+					(P22 == 1)||
+					(P23 == 1)||
+					(P24 == 1)||
+					(P25 == 1)||
+					(P26 == 1)||
+					(P27 == 1)||
+					(P03 == 1)||
+					(P04 == 1))
+					{
+						onShootError();
+					}
 				}
 				break;
 			case 2:
 				P12 = 0;
 				if(P22 == 1)
 				{
-					shootStep = 3;
+					delay_ms(50);
+					if(P22 == 1)
+					{
+						shootStep = 3;
+						P12 = 1;
+					}
+				}
+				if((P20 == 1)||
+				(P21 == 1)||
+				(P23 == 1)||
+				(P24 == 1)||
+				(P25 == 1)||
+				(P26 == 1)||
+				(P27 == 1)||
+				(P03 == 1)||
+				(P04 == 1))
+				{
+					delay_ms(50);
+					if((P20 == 1)||
+					(P21 == 1)||
+					(P23 == 1)||
+					(P24 == 1)||
+					(P25 == 1)||
+					(P26 == 1)||
+					(P27 == 1)||
+					(P03 == 1)||
+					(P04 == 1))
+					{
+						onShootError();
+					}
 				}
 				break;
 			case 3:
 				P13 = 0;
 				if(P23 == 1)
 				{
-					shootStep = 4;
+					delay_ms(50);
+					if(P23 == 1)
+					{
+						shootStep = 4;
+						P13 = 1;
+					}
+				}
+				if((P21 == 1)||
+				(P22 == 1)||
+				(P20 == 1)||
+				(P24 == 1)||
+				(P25 == 1)||
+				(P26 == 1)||
+				(P27 == 1)||
+				(P03 == 1)||
+				(P04 == 1))
+				{
+					delay_ms(50);
+					if((P21 == 1)||
+					(P22 == 1)||
+					(P20 == 1)||
+					(P24 == 1)||
+					(P25 == 1)||
+					(P26 == 1)||
+					(P27 == 1)||
+					(P03 == 1)||
+					(P04 == 1))
+					{
+						onShootError();
+					}
 				}
 				break;
 			case 4:
 				P14 = 0;
 				if(P24 == 1)
 				{
-					shootStep = 5;
+					delay_ms(50);
+					if(P24 == 1)
+					{
+						shootStep = 5;
+						P14 = 1;
+					}
+				}
+				if((P21 == 1)||
+				(P22 == 1)||
+				(P23 == 1)||
+				(P20 == 1)||
+				(P25 == 1)||
+				(P26 == 1)||
+				(P27 == 1)||
+				(P03 == 1)||
+				(P04 == 1))
+				{
+					delay_ms(50);
+					if((P21 == 1)||
+					(P22 == 1)||
+					(P23 == 1)||
+					(P20 == 1)||
+					(P25 == 1)||
+					(P26 == 1)||
+					(P27 == 1)||
+					(P03 == 1)||
+					(P04 == 1))
+					{
+						onShootError();
+					}
 				}
 				break;
 			case 5:
 				P15 = 0;
 				if(P25 == 1)
 				{
-					shootStep = 6;
+					delay_ms(50);
+					if(P25 == 1)
+					{
+						shootStep = 6;
+						P15 = 1;
+					}
 				}
+				if((P21 == 1)||
+				(P22 == 1)||
+				(P23 == 1)||
+				(P24 == 1)||
+				(P20 == 1)||
+				(P26 == 1)||
+				(P27 == 1)||
+				(P03 == 1)||
+				(P04 == 1))
+				{
+					delay_ms(50);
+					if((P21 == 1)||
+					(P22 == 1)||
+					(P23 == 1)||
+					(P24 == 1)||
+					(P20 == 1)||
+					(P26 == 1)||
+					(P27 == 1)||
+					(P03 == 1)||
+					(P04 == 1))
+					{
+						onShootError();
+					}
+				}				
 				break;
 			case 6:
 				P16 = 0;
 				if(P26 == 1)
 				{
-					shootStep = 7;
-				}		
+					delay_ms(50);
+					if(P26 == 1)
+					{
+						shootStep = 7;
+						P16 = 1;
+					}
+				}	
+				if((P21 == 1)||
+				(P22 == 1)||
+				(P23 == 1)||
+				(P24 == 1)||
+				(P25 == 1)||
+				(P20 == 1)||
+				(P27 == 1)||
+				(P03 == 1)||
+				(P04 == 1))
+				{
+					delay_ms(50);
+					if((P21 == 1)||
+					(P22 == 1)||
+					(P23 == 1)||
+					(P24 == 1)||
+					(P25 == 1)||
+					(P20 == 1)||
+					(P27 == 1)||
+					(P03 == 1)||
+					(P04 == 1))
+					{
+						onShootError();
+					}
+				}				
 				break;
 			case 7:
 				P17 = 0;
 				if(P27 == 1)
 				{
-					shootStep = 8;
+					delay_ms(50);
+					if(P27 == 1)
+					{
+						shootStep = 8;
+						P17 = 1;
+					}
 				}
+				if((P21 == 1)||
+				(P22 == 1)||
+				(P23 == 1)||
+				(P24 == 1)||
+				(P25 == 1)||
+				(P26 == 1)||
+				(P20 == 1)||
+				(P03 == 1)||
+				(P04 == 1))
+				{
+					delay_ms(50);
+					if((P21 == 1)||
+					(P22 == 1)||
+					(P23 == 1)||
+					(P24 == 1)||
+					(P25 == 1)||
+					(P26 == 1)||
+					(P20 == 1)||
+					(P03 == 1)||
+					(P04 == 1))
+					{
+						onShootError();
+					}
+				}				
 				break;
 			case 8:
 				P01 = 0;
 				if(P03 == 1)
 				{
-					shootStep = 9;
-				}		
+					delay_ms(50);
+					if(P03 == 1)
+					{
+						shootStep = 9;
+						P01 = 1;
+					}
+				}
+				if((P21 == 1)||
+				(P22 == 1)||
+				(P23 == 1)||
+				(P24 == 1)||
+				(P25 == 1)||
+				(P26 == 1)||
+				(P27 == 1)||
+				(P20 == 1)||
+				(P04 == 1))
+				{
+					delay_ms(50);
+					if((P21 == 1)||
+					(P22 == 1)||
+					(P23 == 1)||
+					(P24 == 1)||
+					(P25 == 1)||
+					(P26 == 1)||
+					(P27 == 1)||
+					(P20 == 1)||
+					(P04 == 1))
+					{
+						onShootError();
+					}
+				}				
 				break;
 			case 9:
 				P02 = 0;
 				if(P04 == 1)
 				{
-					shootStep = 10;
+					delay_ms(50);
+					if(P04 == 1)
+					{
+						shootStep = 10;
+						
+						P02 = 1;
+					}
+				}
+				if((P21 == 1)||
+				(P22 == 1)||
+				(P23 == 1)||
+				(P24 == 1)||
+				(P25 == 1)||
+				(P26 == 1)||
+				(P27 == 1)||
+				(P03 == 1)||
+				(P20 == 1))
+				{
+					delay_ms(50);
+					if((P21 == 1)||
+					(P22 == 1)||
+					(P23 == 1)||
+					(P24 == 1)||
+					(P25 == 1)||
+					(P26 == 1)||
+					(P27 == 1)||
+					(P03 == 1)||
+					(P20 == 1))
+					{
+						onShootError();
+					}
 				}
 				break;
 			case 10:
 				P05 = 0;
+				play_mp3(0,SHOOT_CORRECT);
 				setStep(2);
 				return;
 		}
@@ -205,12 +543,39 @@ void handLockOrCard()
 	//手铐输入
 	if((P32 == 0)&& (P06 == 1))
 	{
-		//牌子感应关闭
-		P07 = 0;
-		//照2个灯
-		setStep(3);
-		return;
+		delay_ms(5000);
+		if((P32 == 0)&& (P06 == 1))
+		{
+			//牌子感应关闭
+			P07 = 0;
+			//照2个灯
+			setStep(3);
+			return;
+		}
 	}
+}
+
+void shoot2Shine()
+{
+	P33 = 0;
+	P35 = 0;
+	delay_ms(100);
+	P33 = 1;
+	P35 = 1;
+	delay_ms(100);
+	P33 = 0;
+	P35 = 0;
+	delay_ms(100);
+	P33 = 1;
+	P35 = 1;
+	delay_ms(100);
+	P33 = 0;
+	P35 = 0;
+	delay_ms(100);
+	P33 = 1;
+	P35 = 1;
+	delay_ms(100);
+	
 }
 
 void shoot2()
@@ -227,20 +592,30 @@ void shoot2()
 				P33 = 0;
 				if(P34 == 1)
 				{
-					shootStep = 1;
+					delay_ms(50);
+					if(P34 == 1)
+					{
+						shootStep = 1;
+						P33 = 1;
+					}
+				}
+				if(P36 == 1)
+				{
+					delay_ms(50);
+					if(P36 == 1)
+					{
+						shootStep = 0;
+						play_mp3(0,SHOOT_ERROR_2);
+						shoot2Shine();
+						delay_ms(1000);
+					}
 				}
 				break;
 			case 1:
-				P35 = 0;
-				if(P36 == 1)
-				{
-					shootStep = 2;
-				}
-				break;
-			case 2:
 				setStep(4);
 				//打开最后的门
 				P37 = 0;
+				play_mp3(0,CRIMINAL_WIN);
 				return;
 		}
 	}
