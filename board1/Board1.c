@@ -101,7 +101,6 @@ void firstOpen() //ABC都开过柜子
 			if((isA == 1)&&(isB == 1)&&(isC == 1))
 			{
 				setStep(2);
-				play_mp3(0,MUSIC_INPUT_3_7);//触发录音202(正确反馈和写字机关提示)
 				return;
 			}
 		}
