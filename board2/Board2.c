@@ -57,7 +57,7 @@ void main()
 					}
 					else
 					{
-						play_mp3(0,MUSIC_1);
+						play_mp3(0,MUSIC_ERROR);
 					}
 				}
 				break;
