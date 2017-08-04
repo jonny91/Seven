@@ -14,6 +14,11 @@ int groupSelect_1 = -1;
 int groupSelect_2 = -1;
 int groupSelect_3 = -1;
 
+int groupSelect_0_last = -1;
+int groupSelect_1_last = -1;
+int groupSelect_2_last = -1;
+int groupSelect_3_last = -1;
+
 /*
  * 输出低电平触发
  * 输入高电平触发
@@ -34,11 +39,26 @@ void main()
 			case 0:
 				checkButtonInput();
 				light();
-				if((groupSelect_0 == 1)&&(groupSelect_2 == 1)&&(groupSelect_3 == 1)&&(groupSelect_3 == 1))
+				if((groupSelect_0_last != groupSelect_0)&&
+				(groupSelect_1_last != groupSelect_1)&&
+				(groupSelect_2_last != groupSelect_2)&&
+				(groupSelect_3_last != groupSelect_3))
 				{
-					P24 = 0;
-					play_mp3(0,MUSIC_0);
-					setStep(1);
+					groupSelect_0_last = groupSelect_0;
+					groupSelect_1_last = groupSelect_1;
+					groupSelect_2_last = groupSelect_2;
+					groupSelect_3_last = groupSelect_3;
+					
+					if((groupSelect_0 == 1)&&(groupSelect_2 == 3)&&(groupSelect_3 == 3)&&(groupSelect_3 == 2))
+					{
+						P24 = 0;
+						play_mp3(0,MUSIC_0);
+						setStep(1);
+					}
+					else
+					{
+						play_mp3(0,MUSIC_1);
+					}
 				}
 				break;
 		}
