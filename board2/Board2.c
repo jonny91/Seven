@@ -49,7 +49,7 @@ void main()
 					groupSelect_2_last = groupSelect_2;
 					groupSelect_3_last = groupSelect_3;
 					
-					if((groupSelect_0 == 1)&&(groupSelect_2 == 3)&&(groupSelect_3 == 3)&&(groupSelect_3 == 2))
+					if((groupSelect_0 == 1)&&(groupSelect_1 == 3)&&(groupSelect_2 == 3)&&(groupSelect_3 == 2))
 					{
 						P24 = 0;
 						play_mp3(0,MUSIC_0);
@@ -57,7 +57,16 @@ void main()
 					}
 					else
 					{
+						delay_ms(1000);
 						play_mp3(0,MUSIC_ERROR);
+						groupSelect_0 = -1;
+						groupSelect_1 = -1;
+						groupSelect_2 = -1;
+						groupSelect_3 = -1;
+						groupSelect_0_last = -1;
+						groupSelect_1_last = -1;
+						groupSelect_2_last = -1;
+						groupSelect_3_last = -1;
 					}
 				}
 				break;
@@ -84,19 +93,19 @@ void init()
 	P21 = 0;
 
 	//10个按钮对应的灯
-	P10 = 1;
-	P11 = 1;
+	P10 = 0;
+	P11 = 0;
 	
-	P12 = 1;
-	P13 = 1;
-	P14 = 1;
+	P12 = 0;
+	P13 = 0;
+	P14 = 0;
 	
-	P15 = 1;
-	P16 = 1;
-	P17 = 1;
+	P15 = 0;
+	P16 = 0;
+	P17 = 0;
 	
-	P22 = 1;
-	P23 = 1;
+	P22 = 0;
+	P23 = 0;
 
 	//电磁柜
 	P24 = 1;
@@ -107,55 +116,55 @@ void checkButtonInput()
 	if(P00 == 1)
 	{
 		groupSelect_0 = 1;
-		return;
+		P00 = 0;
 	}
 	if(P01 == 1)
 	{
 		groupSelect_0 = 2;
-		return;
+		P01 = 0;
 	}
 
 	if(P02 == 1)
 	{
 		groupSelect_1 = 1;
-		return;
+		P02 = 0;
 	}
 	if(P03 == 1)
 	{
 		groupSelect_1 = 2;
-		return;
+		P03 = 0;
 	}
 	if(P04 == 1)
 	{
 		groupSelect_1 = 3;
-		return;
+		P04 = 0;
 	}
 
 	if(P05 == 1)
 	{
 		groupSelect_2 = 1;
-		return;
+		P05 = 0;
 	}
 	if(P06 == 1)
 	{
 		groupSelect_2 = 2;
-		return;
+		P05 = 0;
 	}
 	if(P07 == 1)
 	{
 		groupSelect_2 = 3;
-		return;
+		P07 = 0;
 	}
 
 	if(P20 == 1)
 	{
 		groupSelect_3 = 1;
-		return;
+		P20 = 0;
 	}
 	if(P21 == 1)
 	{
 		groupSelect_3 = 2;
-		return;
+		P21 = 0;
 	}
 }
 
@@ -164,77 +173,77 @@ void light()
 	switch(groupSelect_0)
 	{
 		case -1:
-			P10 = 0;
-			P11 = 0;
+			P10 = 1;
+			P11 = 1;
 			break;
 		case 1:
-			P10 = 1;
-			P11 = 0;
-			break;
-		case 2:
 			P10 = 0;
 			P11 = 1;
+			break;
+		case 2:
+			P10 = 1;
+			P11 = 0;
 			break;
 	}
 	switch(groupSelect_1)
 	{
 		case -1:
-			P12 = 0;
-			P13 = 0;
-			P14 = 0;
+			P12 = 1;
+			P13 = 1;
+			P14 = 1;
 			break;
 		case 1:
-			P12 = 1;
-			P13 = 0;
-			P14 = 0;
-			break;
-		case 2:
 			P12 = 0;
 			P13 = 1;
-			P14 = 0;
+			P14 = 1;
 			break;
-		case 3:
-			P12 = 0;
+		case 2:
+			P12 = 1;
 			P13 = 0;
 			P14 = 1;
+			break;
+		case 3:
+			P12 = 1;
+			P13 = 1;
+			P14 = 0;
 			break;
 	}
 	switch(groupSelect_2)
 	{
 		case -1:
-			P15 = 0;
-			P16 = 0;
-			P17 = 0;
+			P15 = 1;
+			P16 = 1;
+			P17 = 1;
 			break;
 		case 1:
-			P15 = 1;
-			P16 = 0;
-			P17 = 0;
-			break;
-		case 2:
 			P15 = 0;
 			P16 = 1;
-			P17 = 0;
+			P17 = 1;
 			break;
-		case 3:
-			P15 = 0;
+		case 2:
+			P15 = 1;
 			P16 = 0;
 			P17 = 1;
+			break;
+		case 3:
+			P15 = 1;
+			P16 = 1;
+			P17 = 0;
 			break;
 	}
 	switch(groupSelect_3)
 	{
 		case -1:
-			P22 = 0;
-			P23 = 0;
+			P22 = 1;
+			P23 = 1;
 			break;
 		case 1:
-			P22 = 1;
-			P23 = 0;
-			break;
-		case 2:
 			P22 = 0;
 			P23 = 1;
+			break;
+		case 2:
+			P22 = 1;
+			P23 = 0;
 			break;
 	}
 }
