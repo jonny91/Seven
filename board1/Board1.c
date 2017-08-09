@@ -137,8 +137,7 @@ void put()
                 isEnter1 = 1;
                 P21 = 0;//打开房间3的门
                 play_mp3(0,MUSIC_OUTDOOR3);
-				delay_ms(17000);
-				mp3(0x02);//强制结束语音 解决语音连续播放问题
+							  delay_ms(5000);
                 continue;
             }
         }

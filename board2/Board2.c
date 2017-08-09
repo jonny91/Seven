@@ -53,8 +53,6 @@ void main()
 					{
 						P24 = 0;
 						play_mp3(0,MUSIC_0);
-						delay_ms(24000);
-						mp3(0x02);//强制结束语音 解决语音连续播放问题
 						setStep(1);
 					}
 					else
